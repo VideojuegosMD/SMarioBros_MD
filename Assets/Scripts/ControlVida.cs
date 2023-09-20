@@ -6,10 +6,7 @@ public class ControlVida : MonoBehaviour
 {
     Controlador controlador;
     //N?mero de vidas de juego y n?mero de vidas de Mario
-    public int numVidas, toques;
-
-    //bool para perder partida
-    public bool partidaPerdida;
+    public int toques;
 
     public bool invulnerable,crecido;
     public float tContador,tInvulnerable;
@@ -18,9 +15,6 @@ public class ControlVida : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Asignamos el n?mero de vidas de la partida
-        numVidas = 3;
-
         //Asignamos el n?mero de toques que puede recibir el personaje antes de perder una vida
         toques = 1;
 
@@ -56,7 +50,7 @@ public class ControlVida : MonoBehaviour
         }
         else if(s == "Seta1Vida")
         {
-            numVidas++;
+            GameManager.instance.numVidas++;
         }
         else if(s == "FlorFuego")
         {
@@ -77,24 +71,16 @@ public class ControlVida : MonoBehaviour
         }
        
     }
+
+
     public void Caerse()
     {
-        numVidas--;
-        if(numVidas == 0)
+        GameManager.instance.numVidas--;
+        if (!GameManager.instance.CheckLost())
         {
-            //Perdemos partida
-            partidaPerdida = true;
-            //Reiniciamos partida
-            controlador.ReiniciarPartida();
+            GameManager.instance.ReloadActualScene();
         }
-        /*
-        else
-        {
-            controlador.SetSizeOneTime(new Vector2(1, 1), new Vector3(1, 1, 1), false, true);
-
-            Reaparecer();
-        }
-        */
+      
     }
     //Funci?n para reaparecer en el punto de Spawn
     public void Reaparecer()
@@ -118,23 +104,12 @@ public class ControlVida : MonoBehaviour
         if (toques == 0)
         {
             //Quitamos una vida
-            numVidas -= 1;
+            GameManager.instance.numVidas--;
 
-            //Si las vidas llegan a 0
-            if (numVidas == 0)
+            if (!GameManager.instance.CheckLost())
             {
-                //Perdemos partida
-                partidaPerdida = true;
-
-                //Reiniciamos partida
-                controlador.ReiniciarPartida();
-            }
-            //Si a?n quedan vidas
-            else
-            {
-                //Reaparecemos en el punto de Spawn
                 Reaparecer();
-            }
+            }            
         }
         else
         {

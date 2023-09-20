@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,11 +15,17 @@ public class GameManager : MonoBehaviour
 
     public bool enPausa;
 
+    //numero de vidas global (1up)
+    public int numVidas;
+    //bool para perder partida
+    public bool partidaPerdida;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -28,6 +35,7 @@ public class GameManager : MonoBehaviour
         controlador= FindObjectOfType<Controlador>();
         fundido.canvasRenderer.SetAlpha(0);
     }
+
 
     public void PausarDespausar()
     {
@@ -42,10 +50,63 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool CheckLost()
+    {
+        bool lost = false;
+
+        if (numVidas == 0)
+        {
+            lost = true;
+            //Perdemos partida
+            partidaPerdida = true;
+            //Reiniciamos partida
+            ReloadActualScene();
+            //Reiniciar más cosas, gestionar desde GameManager u otro controlador.
+        }
+        return lost;
+    }
+    //Funci?n para reiniciar la partida (Recomendable llevar este comportamiento a un GameManager)
+    public void ReloadActualScene()
+    {
+        //Recargamos escena activa
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    // called first
+    void OnEnable()
+    {       
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // called second
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == "Juego")
+        {
+            if(controlador == null)
+            {
+                controlador = FindObjectOfType<Controlador>();
+            }
+            if(fundido == null)
+            {
+                fundido = GameObject.Find("Fundido").GetComponent<Image>();
+            }
+        }
+    }
+
+    // called when the game is terminated
+    void OnDisable()
+    {
+      
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         enPausa = false;
+        numVidas = 3;
+        Debug.Log(gameObject.name +" Ejecuta START");
     }
 
     // Update is called once per frame

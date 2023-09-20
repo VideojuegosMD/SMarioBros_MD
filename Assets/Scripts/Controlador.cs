@@ -558,14 +558,5 @@ public class Controlador : MonoBehaviour
     {
         rb.velocity= Vector2.zero;
     }
-
-  
-
-    //Funci�n para reiniciar la partida (Recomendable llevar este comportamiento a un GameManager)
-    public void ReiniciarPartida()
-    {
-        //Recargamos escena activa
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
     #endregion
 }
