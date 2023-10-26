@@ -13,7 +13,7 @@ public class Lanzarfuego : MonoBehaviour
     void Start()
     {
         sR = GetComponentInChildren<SpriteRenderer>();
-        tSpawn = transform.GetChild(2);
+        tSpawn = transform.GetChild(1);
         Object o = Resources.Load<Object>("Prefabs/BolaFuego");
         pBolaFuego = (GameObject)o ;
         Resources.UnloadUnusedAssets();

@@ -3,13 +3,23 @@
  https://www.spriters-resource.com/nes/supermariobros/
  
 
-    Limitar velocidad de bola de fuego.
+    Limitar velocidad de bola de fuego. x
+
     Afinar controlador de personaje
-    Mejorar control cámara
+        - Detección de colisión 
+        - Salto con frame extra x
+        - Mejora de la inercia x
+
+    Mejorar control cámara "Hecho"
+
+    Matar enemigos si está encima de bloque y se golpea bloque x
     
-    Corregir muerte caida (hecho?)
-    SMB puede agacharse cuando es grande
-    Sistema de bandera final
+    Estrella de invulnerable x I
+
+    Sistema de bandera final x II
+
     Más tipos de enemigos
-    Sistema controlador agua
+
+    Sistema movimiento controlador agua
+
  */

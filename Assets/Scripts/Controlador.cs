@@ -522,7 +522,7 @@ public class Controlador : MonoBehaviour
     public void OrientarPJ()
     {
         //Obtener el spawn de bolas de fuego  
-        Transform t = transform.GetChild(2);
+        Transform t = transform.GetChild(1);
         if (orientRight)
         {                      
             t.localPosition = new Vector3(Mathf.Abs(t.localPosition.x), t.localPosition.y, t.localPosition.z);
